@@ -1,8 +1,8 @@
 version: '3.7'
 
 services: 
-  main:
-    container_name: main
+  main_ms_data_sharing:
+    container_name: main_ms_data_sharing
     build:
       context: .
       target: development
@@ -18,9 +18,9 @@ services:
     networks:
       - net-ms-data-sharing
     depends_on: 
-      - postgres
-  postgres:
-    container_name: postgres
+      - postgres_ms_data_sharing
+  postgres_ms_data_sharing:
+    container_name: postgres_ms_data_sharing
     image: postgres:12
     networks:
       - net-ms-data-sharing
@@ -33,8 +33,8 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-  pgadmin:
-    container_name: pgadmin_container
+  pgadmin_container_ms_data_sharing:
+    container_name: pgadmin_container_ms_data_sharing
     image: dpage/pgadmin4
     environment: 
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
