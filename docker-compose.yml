@@ -16,14 +16,14 @@ services:
     env_file:
       - .env
     networks:
-      - net-ms-data-sharing
+      - net
     depends_on: 
       - postgres_ms_data_sharing
   postgres_ms_data_sharing:
     container_name: postgres_ms_data_sharing
     image: postgres:12
     networks:
-      - net-ms-data-sharing
+      - net
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
@@ -44,9 +44,9 @@ services:
     ports:
       - ${PGADMIN_PORT}:80
     networks: 
-      - net-ms-data-sharing
+      - net
 networks:
-  net-ms-data-sharing:
+  net:
 volumes:
   pgdata:
   pgadmin:
