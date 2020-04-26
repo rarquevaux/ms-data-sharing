@@ -2,18 +2,33 @@ import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
+import { Logger } from '@nestjs/common';
 
 dotenv.config();
 
-async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.TCP,
-    options: {
-      host: "127.0.0.1",
-      port: 3001
-    }
-  });
+// Create a logger instance
+const logger = new Logger('Main');
 
-  app.listen(() => console.log('Microservice is listening'));
+// Create the microservice options object
+const microserviceOptions = {
+  transport: Transport.TCP,
+  options: {
+    host: '0.0.0.0',
+    port: 8877,
+  },
+};
+
+// Create bootstrap function
+async function bootstrap() {
+  const app = await NestFactory.createMicroservice(AppModule, microserviceOptions); 
+  try {
+    await app.listen(() => {
+      logger.log('Microservice is listening...')
+    });
+  } catch{
+    logger.log('Error during microservice bootstrap');
+  }
 }
+
+// Call bootstrap function
 bootstrap();
