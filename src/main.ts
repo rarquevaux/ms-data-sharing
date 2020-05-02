@@ -13,8 +13,8 @@ const logger = new Logger('Main');
 const microserviceOptions = {
   transport: Transport.TCP,
   options: {
-    host: '0.0.0.0',
-    port: 8877,
+    host: 'main_ms_data_sharing',
+    port: 3001,
   },
 };
 
